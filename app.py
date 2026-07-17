@@ -70,8 +70,8 @@ GRID = "#333333"
 TXT = "#e0e0e0"
 
 # Wikimedia-hosted brand logos (public reference logos, loaded by URL)
-AMAZON_LOGO_URL = "C:\\Users\\HARMANPREET SINGH\\OneDrive\\Pictures\\Screenshots\\amazonlogo.png"
-FLIPKART_LOGO_URL = "https://commons.wikimedia.org/wiki/Special:FilePath/Flipkart_logo_(2026).svg"
+AMAZON_LOGO_URL = "C:\Users\HARMANPREET SINGH\Downloads\amazon logo.png"
+FLIPKART_LOGO_URL = "C:\Users\HARMANPREET SINGH\Downloads\flipkartlogo.svg"
 
 
 def style_fig(fig, title, height=430):
