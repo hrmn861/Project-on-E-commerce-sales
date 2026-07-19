@@ -592,7 +592,7 @@ if selected == "Home":
                 font-size: 4rem;
                 font-weight: 900;
                 letter-spacing: 1px;
-                background: linear-gradient(90deg, #2E8B57, #4FC3F7);
+                background: linear-gradient(90deg, #2E8B57, #2E8B57);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
