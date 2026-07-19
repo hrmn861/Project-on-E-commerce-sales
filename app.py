@@ -651,7 +651,7 @@ if selected == "Home":
             .vs-badge {
                 width: 64px; height: 64px;
                 border-radius: 50%;
-                background: linear-gradient(135deg, #2E8B57, #4FC3F7);
+                background: linear-gradient(135deg, #2E8B57,#2E8B57 );
                 display: flex; align-items: center; justify-content: center;
                 font-size: 1.15rem; font-weight: 900; color: #ffffff;
                 box-shadow: 0 6px 16px rgba(0,0,0,0.45);
@@ -667,7 +667,7 @@ if selected == "Home":
             .explore-card {
                 background-color: #1f1f1f;
                 border: 1px solid #3a3a3a;
-                border-left: 4px solid #4FC3F7;
+                border-left: 4px solid #2E8B57;
                 border-radius: 12px;
                 padding: 18px 20px;
                 margin: 8px 0px;
@@ -678,7 +678,7 @@ if selected == "Home":
                 box-shadow: 0 10px 22px rgba(79,195,247,0.28);
                 border-left-color: #2E8B57;
             }
-            .explore-card h4 { color: #4FC3F7; margin-bottom: 6px; }
+            .explore-card h4 { color: #2E8B57; margin-bottom: 6px; }
             .explore-card p { color: #cccccc; font-size: 0.92rem; margin: 0; }
         </style>
     """, unsafe_allow_html=True)
