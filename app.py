@@ -582,65 +582,231 @@ def show_page_title():
 # PAGE: HOME
 # ================================================================
 if selected == "Home":
-    show_page_title()
-    st.markdown('<div class="page-subtitle">Your all-in-one E-Commerce Sales Analytics Dashboard</div>', unsafe_allow_html=True)
 
-    st.markdown('<div class="section-heading-lg">📊 Project Introduction</div>', unsafe_allow_html=True)
+    # ---- Home-page-only styling (hero title, logo cards, hover effects, VS badge, stat pills) ----
     st.markdown("""
-        <div class="info-card">
-            <p><b>E-Comersales</b> is a sales analytics project built around one central question:
-            when it comes to India's e-commerce space, how do <b>Amazon</b> and <b>Flipkart</b> actually
-            compare? Using order-level data spanning <b>2024–2026</b> across <b>10 product categories</b>
-            and <b>33 states</b>, this dashboard puts the two platforms side by side on revenue, pricing,
-            discounts, customer ratings, and regional performance.</p>
+        <style>
+            .hero-title {
+                text-align: center;
+                font-size: 4rem;
+                font-weight: 900;
+                letter-spacing: 1px;
+                background: linear-gradient(90deg, #2E8B57, #4FC3F7);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 0px;
+                text-shadow: 0px 0px 25px rgba(46,139,87,0.35);
+            }
+            .hero-tagline {
+                text-align: center;
+                font-size: 1.15rem;
+                color: #cfcfcf;
+                margin-top: 4px;
+                margin-bottom: 6px;
+            }
+            .hero-hook {
+                text-align: center;
+                font-size: 1.05rem;
+                color: #e6e6e6;
+                max-width: 780px;
+                margin: 18px auto 10px auto;
+                line-height: 1.7;
+            }
+            .stat-pill {
+                background-color: #1f1f1f;
+                border: 1px solid #3a3a3a;
+                border-top: 3px solid #2E8B57;
+                border-radius: 10px;
+                padding: 12px 8px;
+                text-align: center;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .stat-pill:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 18px rgba(46,139,87,0.3);
+            }
+            .stat-pill .num { font-size: 1.4rem; font-weight: 800; color: #2E8B57; }
+            .stat-pill .lbl { font-size: 0.72rem; color: #aaaaaa; text-transform: uppercase; letter-spacing: 0.5px; }
+
+            .logo-card {
+                background-color: #ffffff;
+                border-radius: 18px;
+                padding: 22px 26px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 8px 22px rgba(0,0,0,0.4);
+                transition: transform 0.25s ease, box-shadow 0.25s ease;
+                height: 140px;
+            }
+            .logo-card:hover {
+                transform: translateY(-6px) scale(1.03);
+                box-shadow: 0 14px 30px rgba(46,139,87,0.45);
+            }
+            .logo-card img { max-width: 100%; max-height: 96px; width: auto; height: auto; }
+
+            .vs-wrap { display: flex; align-items: center; justify-content: center; height: 140px; }
+            .vs-badge {
+                width: 64px; height: 64px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #2E8B57, #4FC3F7);
+                display: flex; align-items: center; justify-content: center;
+                font-size: 1.15rem; font-weight: 900; color: #ffffff;
+                box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+            }
+
+            .hover-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+            .hover-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 12px 26px rgba(46,139,87,0.3);
+                border-color: #2E8B57;
+            }
+
+            .explore-card {
+                background-color: #1f1f1f;
+                border: 1px solid #3a3a3a;
+                border-left: 4px solid #4FC3F7;
+                border-radius: 12px;
+                padding: 18px 20px;
+                margin: 8px 0px;
+                transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            }
+            .explore-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 22px rgba(79,195,247,0.28);
+                border-left-color: #2E8B57;
+            }
+            .explore-card h4 { color: #4FC3F7; margin-bottom: 6px; }
+            .explore-card p { color: #cccccc; font-size: 0.92rem; margin: 0; }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # ---- Hero ----
+    st.markdown('<div class="hero-title">E-Comersales</div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero-tagline">Amazon vs Flipkart — decoded through data</div>', unsafe_allow_html=True)
+    st.markdown("""
+        <div class="hero-hook">
+            Two platforms, one Indian e-commerce market, and 3,000 real-world-style orders caught in the
+            middle. This dashboard pits <b>Amazon</b> against <b>Flipkart</b> on revenue, pricing,
+            discounts, ratings, and geography — so the numbers can settle the argument.
         </div>
     """, unsafe_allow_html=True)
 
-    logo_col1, logo_col2, logo_col3 = st.columns([1, 1, 1])
+    # ---- Quick stats strip (computed live from whichever dataset is loaded) ----
+    df_home = st.session_state.df if st.session_state.df is not None else load_data(None)
+    if df_home is not None:
+        n_orders = len(df_home)
+        n_states = df_home["State_"].nunique() if "State_" in df_home.columns else None
+        n_categories = df_home["prod_category"].nunique() if "prod_category" in df_home.columns else None
+        yr_range = f"{int(df_home['Year'].min())}–{int(df_home['Year'].max())}" if "Year" in df_home.columns else None
+
+        stats = [("📦", f"{n_orders:,}", "Orders Analyzed")]
+        if n_categories:
+            stats.append(("🏷️", f"{n_categories}", "Categories"))
+        if n_states:
+            stats.append(("🌍", f"{n_states}", "States Covered"))
+        if yr_range:
+            stats.append(("📅", yr_range, "Time Span"))
+        stats.append(("🆚", "2", "Platforms Compared"))
+
+        stat_cols = st.columns(len(stats))
+        for col, (icon, num, lbl) in zip(stat_cols, stats):
+            with col:
+                st.markdown(f'<div class="stat-pill"><div class="num">{icon} {num}</div>'
+                            f'<div class="lbl">{lbl}</div></div>', unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+
+    # ---- Logos face-off ----
+    def _img_b64(path):
+        try:
+            with open(path, "rb") as f:
+                return base64.b64encode(f.read()).decode()
+        except (FileNotFoundError, OSError):
+            return None
+
+    amazon_b64 = _img_b64(os.path.join(APP_DIR, "amazon_logo.png"))
+    flipkart_b64 = _img_b64(os.path.join(APP_DIR, "flipkart_logo.png"))
+
+    logo_col1, vs_col, logo_col2 = st.columns([2, 1, 2])
     with logo_col1:
-        st.image(AMAZON_LOGO_URL, width=260)
-    with logo_col3:
-        st.image(FLIPKART_LOGO_URL, width=260)
+        if amazon_b64:
+            st.markdown(f'<div class="logo-card"><img src="data:image/png;base64,{amazon_b64}"/></div>', unsafe_allow_html=True)
+        else:
+            st.markdown('<div class="logo-card"><b style="color:#000;">Amazon</b></div>', unsafe_allow_html=True)
+    with vs_col:
+        st.markdown('<div class="vs-wrap"><div class="vs-badge">VS</div></div>', unsafe_allow_html=True)
+    with logo_col2:
+        if flipkart_b64:
+            st.markdown(f'<div class="logo-card"><img src="data:image/png;base64,{flipkart_b64}"/></div>', unsafe_allow_html=True)
+        else:
+            st.markdown('<div class="logo-card"><b style="color:#000;">Flipkart</b></div>', unsafe_allow_html=True)
 
-    st.markdown("""
-        <div class="info-card">
-            <p>Every chart and insight in this project is built to answer the same underlying question
-            from a different angle — <i>who's winning, where, and why</i> — so the comparison stays the
-            throughline from the raw data all the way to the final takeaways.</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
+    # ---- Expandable deeper background (keeps the main intro short) ----
+    with st.expander("📖 Want the fuller story? Read the project background"):
+        st.markdown("""
+            India's e-commerce race has really come down to two players, and this project treats that
+            rivalry as a proper data problem instead of a debate. The dataset behind E-Comersales covers
+            **2024–2026** across **10 product categories** and **33 states**, capturing real pricing,
+            discount depth, festival sales like GIF and BBD, payment methods, and customer ratings for
+            both platforms. Every chart and insight in this dashboard traces back to the same question
+            from a different angle: *who's actually winning, where, and why.*
+        """)
+
+    # ---- What this dashboard answers ----
     st.markdown('<div class="section-heading-sm">🎯 What This Dashboard Answers</div>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
-
     with col1:
         st.markdown("""
-            <div class="info-card">
+            <div class="info-card hover-card">
                 <h3>🆚 Amazon vs Flipkart</h3>
                 <p>Which platform generates more revenue and orders, which categories each one
-                dominates, and how pricing and discounting behavior differs between them.</p>
+                dominates, and how pricing and discounting differ between them.</p>
             </div>
         """, unsafe_allow_html=True)
-
     with col2:
         st.markdown("""
-            <div class="info-card">
+            <div class="info-card hover-card">
                 <h3>🎉 Festival Sale Impact</h3>
                 <p>Whether events like GIF and BBD genuinely drive higher order volumes and deeper
                 discounts on each platform, or whether the effect is smaller than expected.</p>
             </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("""
-        <div class="info-card">
-            <h3>🔑 Key Features</h3>
-            <p>✔️ Upload your own Amazon/Flipkart-style sales data (CSV/Excel)<br>
-            ✔️ 15 interactive Plotly charts, all built around the platform comparison<br>
-            ✔️ Automatically generated insights and trends<br>
-            ✔️ Clean, dark-themed dashboard UI</p>
-        </div>
-    """, unsafe_allow_html=True)
+    # ---- Explore the dashboard (orientation for new visitors) ----
+    st.markdown('<div class="section-heading-sm">🧭 Explore the Dashboard</div>', unsafe_allow_html=True)
+    e1, e2, e3 = st.columns(3)
+    with e1:
+        st.markdown("""
+            <div class="explore-card">
+                <h4>📁 Upload Dataset</h4>
+                <p>Bring your own Amazon/Flipkart-style sales data, or explore the bundled sample set.</p>
+            </div>
+        """, unsafe_allow_html=True)
+    with e2:
+        st.markdown("""
+            <div class="explore-card">
+                <h4>📊 Data Visualisation</h4>
+                <p>15 interactive charts, all built around the head-to-head platform comparison.</p>
+            </div>
+        """, unsafe_allow_html=True)
+    with e3:
+        st.markdown("""
+            <div class="explore-card">
+                <h4>💡 Insights & Trends</h4>
+                <p>Auto-generated takeaways on who's winning, where, and why — recalculated live.</p>
+            </div>
+        """, unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center; color:#888; margin-top:10px;">👈 Use the sidebar to jump to any of these</p>', unsafe_allow_html=True)
 
+    # ---- Fun closing CTA ----
+    st.markdown("<br>", unsafe_allow_html=True)
+    _, btn_col, _ = st.columns([2, 1, 2])
+    with btn_col:
+        if st.button("🚀 Let's dive in!", width="stretch"):
+            st.balloons()
 # ================================================================
 # PAGE: UPLOAD DATASET
 # ================================================================
