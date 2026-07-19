@@ -653,7 +653,7 @@ if selected == "Home":
                 border-radius: 50%;
                 background: linear-gradient(135deg, #2E8B57,#2E8B57 );
                 display: flex; align-items: center; justify-content: center;
-                font-size: 1.15rem; font-weight: 900; color: #ffffff;
+                font-size: 1.15rem; font-weight: 900; color: #01080c;
                 box-shadow: 0 6px 16px rgba(0,0,0,0.45);
             }
 
