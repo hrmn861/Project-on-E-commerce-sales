@@ -770,9 +770,11 @@ if selected == "Home":
     with col2:
         st.markdown("""
             <div class="info-card hover-card">
-                <h3>🎉 Festival Sale Impact</h3>
-                <p>Whether events like GIF and BBD genuinely drive higher order volumes and deeper
-                discounts on each platform, or whether the effect is smaller than expected.</p>
+                <h3>🔑 Key Features</h3>
+                <p>✔️ Upload your own Amazon/Flipkart-style sales data (CSV/Excel)<br>
+            ✔️ 15 interactive Plotly charts, all built around the platform comparison<br>
+            ✔️ Automatically generated insights and trends<br>
+            ✔️ Clean, dark-themed dashboard UI</p>
             </div>
         """, unsafe_allow_html=True)
 
