@@ -686,7 +686,7 @@ if selected == "Home":
     # ---- Hero ----
     st.markdown('<div class="hero-title">E-Comersales</div>', unsafe_allow_html=True)
     st.markdown('<div class="hero-tagline">Amazon vs Flipkart — decoded through data</div>', unsafe_allow_html=True)
-      with st.expander("📖 Want the fuller story? Read the project background"):
+    with st.expander("📖 Want the fuller story? Read the project background"):
         st.markdown(""" <div class="hero-hook">
         
 
