@@ -687,7 +687,7 @@ if selected == "Home":
     st.markdown('<div class="hero-title">E-Comersales</div>', unsafe_allow_html=True)
     st.markdown('<div class="hero-tagline">Amazon vs Flipkart — decoded through data</div>', unsafe_allow_html=True)
     with st.expander("📖 Want the fuller story? Read the project background"):
-    st.markdown(""" <div class="hero-hook">
+        st.markdown(""" <div class="hero-hook">
         India's e-commerce race has really come down to two players, and this project treats that
             rivalry as a proper data problem instead of a debate. The dataset behind E-Comersales covers
             **2024–2026** across **10 product categories** and **33 states**, capturing real pricing,
