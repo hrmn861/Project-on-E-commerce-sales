@@ -686,11 +686,19 @@ if selected == "Home":
     # ---- Hero ----
     st.markdown('<div class="hero-title">E-Comersales</div>', unsafe_allow_html=True)
     st.markdown('<div class="hero-tagline">Amazon vs Flipkart — decoded through data</div>', unsafe_allow_html=True)
-    st.markdown("""
-        <div class="hero-hook">
-            Two platforms, one Indian e-commerce market, and 3,000 real-world-style orders caught in the
-            middle. This dashboard pits <b>Amazon</b> against <b>Flipkart</b> on revenue, pricing,
-            discounts, ratings, and geography — so the numbers can settle the argument.
+      with st.expander("📖 Want the fuller story? Read the project background"):
+        st.markdown(""" <div class="hero-hook">
+        
+
+            India's e-commerce race has really come down to two players, and this project treats that
+            rivalry as a proper data problem instead of a debate. The dataset behind E-Comersales covers
+            **2024–2026** across **10 product categories** and **33 states**, capturing real pricing,
+            discount depth, festival sales like GIF and BBD, payment methods, and customer ratings for
+            both platforms. Every chart and insight in this dashboard traces back to the same question
+            from a different angle: *who's actually winning, where, and why.*
+        
+            
+        
         </div>
     """, unsafe_allow_html=True)
 
